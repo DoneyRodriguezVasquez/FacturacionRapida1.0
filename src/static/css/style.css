@@ -1,0 +1,250 @@
+body {
+  font-size: .875rem;
+  overflow-x: hidden;
+}
+.container-fluid{
+  padding: 0;
+}
+
+#sidebar-main {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none; 
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
+@media only screen and (min-device-width : 480px){
+  .sidebar{
+    height: 100vh;
+    max-height: 100vh;
+    overflow-x: hidden;
+    position: -webkit-sticky;
+    position: sticky; 
+    top:0;
+    left: 0;
+  }
+}
+
+.bi {
+  vertical-align: -.125em;
+  fill: currentColor;
+}
+.btn-toggle:hover,
+.btn-toggle:focus {
+  color: rgba(var(--bs-emphasis-color-rgb), .85);
+  background-color: var(--bs-tertiary-bg);
+}
+
+.btn-toggle[aria-expanded="true"] {
+  color: rgba(var(--bs-emphasis-color-rgb), .85);
+}
+.btn-toggle[aria-expanded="true"]::before {
+  transform: rotate(90deg);
+}
+
+.btn-toggle-nav a {
+  padding: .1875rem .5rem;
+  margin-top: .125rem;
+  margin-left: 1.25rem;
+}
+.btn-toggle-nav a:hover,
+.btn-toggle-nav a:focus {
+  background-color: var(--bs-tertiary-bg);
+}
+
+.btn-bd-primary {
+  --bd-violet-bg: #712cf9;
+  --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+  --bs-btn-font-weight: 600;
+  --bs-btn-color: var(--bs-white);
+  --bs-btn-bg: var(--bd-violet-bg);
+  --bs-btn-border-color: var(--bd-violet-bg);
+  --bs-btn-hover-color: var(--bs-white);
+  --bs-btn-hover-bg: #6528e0;
+  --bs-btn-hover-border-color: #6528e0;
+  --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+  --bs-btn-active-color: var(--bs-btn-hover-color);
+  --bs-btn-active-bg: #5a23c8;
+  --bs-btn-active-border-color: #5a23c8;
+}
+
+.bd-mode-toggle {
+  z-index: 1500;
+}
+
+.bd-mode-toggle .dropdown-menu .active .bi {
+  display: block !important;
+}
+
+.bi {
+  vertical-align: -.125em;
+  fill: currentColor;
+}
+
+.teal-500{
+    background-color: #20c997;
+}
+
+.cyan-100{
+    background-color: #B2EBF2;
+}
+
+.yellow-100{
+    background-color: #FFF9C4;
+}
+
+.blue-100{
+    background-color: #BBDEFB;
+}
+
+.blue-200{
+    background-color: #90CAF9;
+}
+
+.orange-400{
+    background-color: #fd9843;
+}
+
+.red-400 {
+    background-color: #e35d6a;
+}
+  
+.feather {
+  width: 16px;
+  height: 16px;
+  vertical-align: text-bottom;
+}
+
+.form-control-dark {
+  color: #fff;
+  background-color: rgba(255, 255, 255, .1);
+  border-color: rgba(255, 255, 255, .1);
+}
+
+.form-control-dark:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+}
+
+.box-sh:hover {
+  -webkit-box-shadow: 9px 8px 24px 0px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 9px 8px 24px 0px rgba(66, 68, 90, 1);
+  box-shadow: 9px 8px 24px 0px rgba(66, 68, 90, 1);
+  transform: translateY(-5px);
+}
+
+.card-move:hover {
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: -o-grab;
+  cursor: -ms-grab;
+  cursor: grab;
+}
+
+.card-move:active #important #important{
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  cursor: -o-grabbing;
+  cursor: -ms-grabbing;
+  cursor: grabbing;
+}
+
+.card-click {
+  cursor: pointer;
+}
+
+.btn-config {
+  border:none;
+}
+
+.card_link {
+  text-decoration: none;
+}
+
+#main-hero{
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.about {
+  position: relative;
+  text-align: center;
+  padding: 40px 20px;
+  border: 1px solid #EEE;
+  margin: 15px 0px;
+}
+
+.about:hover:after {
+  content: "";
+  background-color: #1f211c !important;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0%;
+  z-index: -1;
+  -webkit-transition: 0.2s width;
+  transition: 0.2s width;
+}
+
+.about:hover:after {
+  width: 100%;
+}
+
+.about h3 {
+  -webkit-transition: 0.2s color;
+  transition: 0.2s color;
+}
+
+.about:hover h3 {
+  color: #fff;
+}
+
+.about p {
+  color: rgba(108,117,125,1);
+}
+.about:hover p {
+  color: #fff;
+}
+
+.h3-title {
+  color: #000000;
+}
+
+.about:hover h3{
+  color: #fff !important;
+}
+
+.title:after {
+  content: "";
+  display: block;
+  height: 4px;
+  width: 60px;
+  background-color: #6195FF;
+  margin: 20px auto 0px;
+}
+
+.bg-grey {
+  background-color: #FAFAFA;
+  border-top: 1px solid #EEE;
+  border-bottom: 1px solid #EEE;
+}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Descargar adjuntos
+{% endblock title %}
+
+{% block content %}
+<section class="mt-3">
+    <h5 class="text-center">
+        Descargar Adjuntos
+    </h5>
+    <div class="container position-relative">
+        <div class="container my-3 my-lg-5">
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-10 shadow-sm mx-auto bg-light py-2">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                              <th scope="col">Fecha</th>
+                              <th scope="col">Proveedor</th>
+                              <th scope="col">Carpeta</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for mensaje in mensajes %}
+                                <tr>
+                                <td scope="row">{{ mensaje.fecha | date:"d/M/Y" }}</td>
+                                <td>{{ mensaje.proveedor }}</td>
+                                <td>{{ mensaje.carpeta }}</td>
+                                </tr>
+                            {% endfor %}
+                          </tbody>
+                      </table>
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                            <button class="btn btn-lg btn-primary" type="submit">Descargar Adjuntos</button>
+                            <a class="btn btn-lg btn-success" href="{% url 'home:dashboard' %}">Regresar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-10 shadow-sm mx-2 bg-light py-2">
+                    {% if message %}
+                        <p class="text-center text-danger">Error de autenticación, {{message}}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
