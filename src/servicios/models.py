@@ -13,5 +13,10 @@ class FacturaServicio(models.Model):
     total_impuesto = models.DecimalField(max_digits=15, decimal_places=2)
     total_comprobante = models.DecimalField(max_digits=15, decimal_places=2)
 
+    class Meta:
+        verbose_name = 'Ingreso'
+        verbose_name_plural = 'Ingresos'
+        ordering = ['fecha_emision']    
+    
     def __str__(self):
-        return self.numero_consecutivo
+        return f"{self.numero_consecutivo} - {self.fecha_emision} - {self.total_comprobante} - {self.receptor_nombre}"

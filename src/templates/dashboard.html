@@ -14,11 +14,11 @@
                 <h1 class="h2">Dashboard</h1>
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <div class="btn-group me-2">
-                        <a href="" class="btn btn-sm btn-outline-secondary">Cargar Ventas</a>
-                        <a href="" class="btn btn-sm btn-outline-secondary">Reporte Ventas</a>
-                        <a href="" class="btn btn-sm btn-outline-secondary">Cargar Compras</a>
+                        <a href="{% url 'servicios:carga_servicios'%}" class="btn btn-sm btn-outline-secondary">Cargar Ventas</a>
+                        <a href="{% url 'servicios:reporte_ventas'%}" class="btn btn-sm btn-outline-secondary">Reporte Ventas</a>
+                        <a href="{% url 'gastos:carga_compras'%}" class="btn btn-sm btn-outline-secondary">Cargar Compras</a>
                         <a href="" class="btn btn-sm btn-outline-secondary">Reporte Compras</a>
-                        <a href="{% url 'gastos:carga' %}" class="btn btn-sm btn-outline-secondary">Descargar Facturas</a>
+                        <a href="{% url 'gastos:descarga' %}" class="btn btn-sm btn-outline-secondary">Descargar Facturas</a>
                     </div>
                   </div>
             </div>

@@ -1,13 +1,20 @@
+import os
+import traceback
+import locale
+
 from django.shortcuts import render
 from django.views.generic import View
-from .utils import limpiar_nombre_asunto, crear_carpeta_unica, guardar_adjuntos, obtiene_mensajes
-import locale
-import os
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
+from django.http import HttpResponseRedirect
+
+from .utils import limpiar_nombre_asunto, crear_carpeta_unica, guardar_adjuntos, obtiene_mensajes, obtiene_compras
+from facturacion.xml_handler import Facturas 
 
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 
 
-class Carga(View):
+class Descarga(View):
     def get(self, request, *args, **kwargs):
         try:
             mensajes_list = [] # Inicializa una lista para almacenar los mensajes procesados
@@ -72,4 +79,41 @@ class Carga(View):
             traceback.print_exc()
             return render(request, 'carga_factura.html', {'message': str(e)})
 
+class CargaCompras(LoginRequiredMixin, View):
+    """
+    Se maneja la carga y procesamiento de facturas de compra.
+    Requiere que el usuario esté autenticado.
+    """
+    def get(self, request):
+        form = obtiene_compras() 
+        return render(request, 'ingresos.html', {'form': form, 'titulo': 'Carga de compras'})
 
+    def post(self, request):
+        if 'myFiles' not in request.FILES:
+            messages.error(request, 'No se ha cargado el archivo.')
+            return HttpResponseRedirect('/gastos/carga_compras')
+        
+        factura = Facturas(request.FILES['myFiles'], request.user, 'compra')
+
+        if factura.validar():
+            try:
+                factura.handle_uploaded_file()
+            except Exception as e:
+                muestra_mensajes(request, factura.errors)  
+                print(f"Error al procesar el archivo: {e}")
+                traceback.print_exc()
+                return HttpResponseRedirect('/gastos/carga_compras')
+            
+            messages.success(request,'Documento agregado satisfactoriamente.')
+            return HttpResponseRedirect('/gastos/carga_compras')
+        else:
+            muestra_mensajes(request, factura.errors)
+            return HttpResponseRedirect('/gastos/carga_compras')
+
+def muestra_mensajes(request, lista_mensajes):
+    """
+    Muestra los mensajes en la plantilla de carga_factura.html.
+    """
+    for value in lista_mensajes:
+        messages.error(request, value)
+    

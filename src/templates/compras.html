@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+    <div class="container mx-auto">
+        <div class="row">
+            <div class="col text-center mt-5">
+                <h1>Recepción de documentos de Compras</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-sm-8 mt-5">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input id="uploadInput" aria-describedby="uploadInputAddon" type="file" class="custom-file-input" name="myFiles">
+                            <label class="custom-file-label" for="uploadInput">Examinar</label>
+                        </div>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit" id="uploadInputAddon">Cargar XML</button>
+                            <!--<input type="submit" class="btn btn-outline-secondary" value="Cargar XML">-->
+                        </div>
+                    </div>
+                </form>
+                Selected files: <span id="fileNum">0</span>;
+                Total size: <span id="fileSize">0</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-sm-10 mt-5">
+                {% if form %}
+                    <div class="table-responsive">
+                        <table class="table table-striped table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Fecha Emision</th>
+                                    <th>Clave</th>
+                                    <th>Emisor</th>
+                                    <th>Monto</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    {% for linea in form %}
+                        <tr>
+                            <td>{{ linea.FechaEmision|date:"SHORT_DATE_FORMAT"}}</td>
+                            <td>{{ linea.Clave}}</td>
+                            <td>{{ linea.emisor.NombreComercial}}</td>
+                            {% if linea.resumen.CodigoMoneda == 'USD'%}
+                                <td>&#8353;{% widthratio linea.resumen.TotalComprobante 1 request.COOKIES.tc_compra%}</td>
+                                <td>&#8353;{% widthratio linea.resumen.TotalImpuesto 1 request.COOKIES.tc_compra %}</td>
+                            {% else %}
+                                <td>&#8353;{{ linea.resumen.TotalComprobante|floatformat:"0g" }}</td>
+                                <td>&#8353;{{ linea.resumen.TotalImpuesto|floatformat:"0g" }}</td>
+                            {% endif%}
+                        </tr>
+                    {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p>No hay facturas agregadas recientemente.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <script>
+        function updateSize() {
+            let nBytes = 0,
+                oFiles = this.files,
+                nFiles = oFiles.length;
+            for (let nFileId = 0; nFileId < nFiles; nFileId++) {
+                nBytes += oFiles[nFileId].size;
+            }
+            let sOutput = nBytes + " bytes";
+            // optional code for multiples approximation
+            const aMultiples = ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"];
+            for (nMultiple = 0, nApprox = nBytes / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
+                sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple] + " (" + nBytes + " bytes)";
+            }
+            // end of optional code
+            document.getElementById("fileNum").innerHTML = nFiles;
+            document.getElementById("fileSize").innerHTML = sOutput;
+        }
+
+        document.getElementById("uploadInput").addEventListener("change", updateSize, false);
+       
+
+    </script>
+{% endblock %}

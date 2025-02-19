@@ -248,3 +248,7 @@ body {
   border-top: 1px solid #EEE;
   border-bottom: 1px solid #EEE;
 }
+
+.w-25 {
+  width: 25%;
+}
